@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Card from 'antd/lib/card';
-import Table from 'antd/lib/table';
+import { Table, Input } from "antd";
 import Badge from 'antd/lib/badge';
 import Tag from 'antd/lib/tag';
 import { getData, formatEventsPerSecond, formatCallsPerSecond, formatSeconds } from './helpers';
@@ -55,7 +55,25 @@ class MetricsWidget extends Component {
             { title: 'p99', dataIndex: 'p99', key: 'p99', align: 'right', render: formatSeconds },
             { title: 'p999', dataIndex: 'p999', key: 'p999', align: 'right', render: formatSeconds }
         ];
+
+
     }
+    search(value) {
+        const { baseData } = this.state;
+        console.log("PASS", { value });
+
+        const filterTable = baseData.filter(o =>
+            Object.keys(o).some(k =>
+                String(o[k])
+                .toLowerCase()
+                .includes(value.toLowerCase())
+            )
+        );
+
+        this.setState({ filterTable });
+    };
+
+
 
     render() {
         const gauges = getData(this.props.data.gauges);
@@ -73,15 +91,22 @@ class MetricsWidget extends Component {
         ];
 
         const contentList = {
-            gauges: <Table dataSource={gauges} columns={this.gaugesColumns} pagination={{ pageSize: 5 }} size="middle"/>,
-            counters: <Table dataSource={counters} columns={this.countersColumns} pagination={{ pageSize: 5 }} size="middle"/>,
-            histograms: <Table dataSource={histograms} columns={this.histogramsColumns} pagination={{ pageSize: 5 }} size="middle"/>,
-            meters: <Table dataSource={meters} columns={this.metersColumns} pagination={{ pageSize: 5 }} size="middle"/>,
-            timers: <Table dataSource={timers} columns={this.timersColumns} pagination={{ pageSize: 5 }} size="middle" scroll={{ x: 2000 }}/>
+            gauges: <Table dataSource={gauges} columns={this.gaugesColumns} pagination={{ pageSize: 100 }} size="middle"/>,
+            counters: <Table dataSource={counters} columns={this.countersColumns} pagination={{ pageSize: 100 }} size="middle"/>,
+            histograms: <Table dataSource={histograms} columns={this.histogramsColumns} pagination={{ pageSize: 100 }} size="middle"/>,
+            meters: <Table dataSource={meters} columns={this.metersColumns} pagination={{ pageSize: 100 }} size="middle"/>,
+            timers: <Table dataSource={timers} columns={this.timersColumns} pagination={{ pageSize: 100 }} size="middle" scroll={{ x: 2000 }}/>
         };
 
         return (
+
             <Card tabList={tabList} activeTabKey={this.state.key} onTabChange={(key) => { this.onTabChange(key, 'key'); }} className="dwm-core">
+                <Input.Search
+                    style={{ border: "3px solid red", margin: "0 0 10px 0" }}
+                    placeholder="Search by..."
+                    enterButton
+                    onSearch={this.search}
+                />
                 { contentList[this.state.key] }
             </Card>
         );

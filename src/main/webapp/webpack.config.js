@@ -26,6 +26,10 @@ const config = {
             {
                 test: /\.(png)$/,
                 use: 'url-loader'
+            },
+            {
+                test: /\.(svg)$/,
+                use: 'url-loader'
             }
         ]
     },
