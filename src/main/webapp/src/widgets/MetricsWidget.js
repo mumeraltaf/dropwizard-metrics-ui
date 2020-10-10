@@ -73,7 +73,7 @@ class MetricsWidget extends Component {
         const meters = getData(this.props.data.meters);
         const timers = getData(this.props.data.timers);
         function search(value) {
-            const { baseData } = this.props.data.meters;
+            const { baseData } = timers;
             console.log("PASS", { value });
 
             const filterTable = baseData.filter(o =>
@@ -84,7 +84,7 @@ class MetricsWidget extends Component {
                 )
             );
 
-            this.props.data.meters = filterTable;
+            timers = filterTable;
         };
         const tabList = [
             { key: 'gauges', tab: <>Gauges <Tag>{gauges.length}</Tag></> },
