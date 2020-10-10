@@ -39,13 +39,17 @@ class MetricsWidget extends Component {
 
         this.timersColumns = [
             { title: 'Name', dataIndex: 'name', key: 'name', fixed: 'left' },
-            { title: 'Count', dataIndex: 'count', key: 'count', align: 'right' },
+            { title: 'Count', dataIndex: 'count', key: 'count', align: 'right',
+                defaultSortOrder: 'descend',
+                sorter: (a, b) => a.count - b.count},
             { title: 'Mean Rate', dataIndex: 'mean_rate', key: 'mean_rate', align: 'right', render: formatCallsPerSecond },
             { title: '1m Rate', dataIndex: 'm1_rate', key: 'm1_rate', align: 'right', render: formatCallsPerSecond },
             { title: '5m Rate', dataIndex: 'm5_rate', key: 'm5_rate', align: 'right', render: formatCallsPerSecond },
             { title: '15m Rate', dataIndex: 'm15_rate', key: 'm15_rate', align: 'right', render: formatCallsPerSecond },
             { title: 'Min', dataIndex: 'min', key: 'min', align: 'right', render: formatSeconds },
-            { title: 'Mean', dataIndex: 'mean', key: 'mean', align: 'right', render: formatSeconds },
+            { title: 'Mean', dataIndex: 'mean', key: 'mean', align: 'right', render: formatSeconds,
+                defaultSortOrder: 'descend',
+                sorter: (a, b) => a.mean - b.mean },
             { title: 'Max', dataIndex: 'max', key: 'max', align: 'right', render: formatSeconds },
             { title: 'StdDev', dataIndex: 'stddev', key: 'stddev', align: 'right', render: formatSeconds },
             { title: 'p50', dataIndex: 'p50', key: 'p50', align: 'right', render: formatSeconds },
@@ -59,7 +63,7 @@ class MetricsWidget extends Component {
 
     }
     search(value) {
-        const { baseData } = this.state;
+        const { baseData } = this.props.data;
         console.log("PASS", { value });
 
         const filterTable = baseData.filter(o =>
