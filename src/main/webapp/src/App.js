@@ -22,7 +22,7 @@ const { TabPane } = Tabs;
 
 
 function callback(key) {
-  console.log(key);
+  // console.log(key);
 }
 
 class App extends Component {
@@ -72,7 +72,7 @@ class App extends Component {
           </Affix>
           <Content style={{margin: '0 40px' }}>
             <Tabs defaultActiveKey="1" onChange={callback}>
-              <TabPane tab="Tab 1" key="1">
+              <TabPane tab="System" key="1">
             <Row gutter={16}>
               <Col span={24}>
                 <OverviewWidget data={this.state.data}/>
@@ -94,7 +94,7 @@ class App extends Component {
                   </Col>
                 </Row>
               </TabPane>
-              <TabPane tab="Tab 2" key="2">
+              <TabPane tab="Metrics" key="2">
                 <Row gutter={16}>
                   <Col span={24}>
                     <MetricsWidget data={this.state.data}/>

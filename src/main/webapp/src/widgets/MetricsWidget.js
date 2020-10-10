@@ -84,7 +84,7 @@ class MetricsWidget extends Component {
                 )
             );
 
-            this.setState({ filterTable });
+            this.props.data.meters = filterTable;
         };
         const tabList = [
             { key: 'gauges', tab: <>Gauges <Tag>{gauges.length}</Tag></> },
