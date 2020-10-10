@@ -62,20 +62,7 @@ class MetricsWidget extends Component {
 
 
     }
-    search(value) {
-        const { baseData } = this.props.data;
-        console.log("PASS", { value });
 
-        const filterTable = baseData.filter(o =>
-            Object.keys(o).some(k =>
-                String(o[k])
-                .toLowerCase()
-                .includes(value.toLowerCase())
-            )
-        );
-
-        this.setState({ filterTable });
-    };
 
 
 
@@ -85,7 +72,20 @@ class MetricsWidget extends Component {
         const histograms = getData(this.props.data.histograms);
         const meters = getData(this.props.data.meters);
         const timers = getData(this.props.data.timers);
+        function search(value) {
+            const { baseData } = this.props.data.meters;
+            console.log("PASS", { value });
 
+            const filterTable = baseData.filter(o =>
+                Object.keys(o).some(k =>
+                    String(o[k])
+                    .toLowerCase()
+                    .includes(value.toLowerCase())
+                )
+            );
+
+            this.setState({ filterTable });
+        };
         const tabList = [
             { key: 'gauges', tab: <>Gauges <Tag>{gauges.length}</Tag></> },
             { key: 'counters', tab: <>Counters <Tag>{counters.length}</Tag></> },
