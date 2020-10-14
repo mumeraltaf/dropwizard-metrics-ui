@@ -71,11 +71,11 @@ class MetricsWidget extends Component {
         const counters = getData(this.props.data.counters);
         const histograms = getData(this.props.data.histograms);
         const meters = getData(this.props.data.meters);
-        const timers = getData(this.props.data.timers);
+        let timers = getData(this.props.data.timers);
         function search(value) {
-            const { baseData } = timers;
+            const { baseData } = this.props.data.timers;
             console.log("PASS", { value });
-
+            console.log("PASS", { value });
             const filterTable = baseData.filter(o =>
                 Object.keys(o).some(k =>
                     String(o[k])
@@ -83,7 +83,7 @@ class MetricsWidget extends Component {
                     .includes(value.toLowerCase())
                 )
             );
-
+            console.log(timers)
             timers = filterTable;
         };
         const tabList = [

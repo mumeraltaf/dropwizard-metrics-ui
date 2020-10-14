@@ -51,12 +51,14 @@ class App extends Component {
     }
 
     timer() {
-        fetch('/admin/metrics')
+        fetch('http://localhost:8000')
             .then(response => response.json())
             .then(responseJson => this.setState({
                 ts: new Date(),
                 data: responseJson
-            }));
+            })).catch(function(err) {
+          console.log('Fetch Error :-S', err);
+        });;
     }
 
 
@@ -66,8 +68,8 @@ class App extends Component {
           <Layout>
           <Affix>
             <Header>
-              <div className="title">METRICS</div>
-              <span className="timestamp">{ this.state.ts && this.state.ts.toGMTString() }</span>
+              <div className="title">ARES METRICS</div>
+              <span className="timestamp">{ this.state.ts && this.state.ts.toLocaleString() }</span>
             </Header>
           </Affix>
           <Content style={{margin: '0 40px' }}>
